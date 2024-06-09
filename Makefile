@@ -1,3 +1,4 @@
+
 # NAME = ft_transcendence
 
 # # COMPILER
@@ -6,7 +7,7 @@
 # RM = rm -rf
 
 # # DIRECTORIES
-# SRC =	$(wildcard *.cpp **/*.cpp **/*/*.cpp **/*/*/*.cpp)
+# SRC = $(wildcard *.cpp **/*.cpp **/*/*.cpp **/*/*/*.cpp)
 # OBJ_DIR = obj
 # SRC_DIR = src
 # INC_DIR = inc
@@ -25,10 +26,22 @@
 # 	@$(CC) $(OBJS) -o $@ $(CFLAGS)
 # 	@echo $(GREEN)"- Compiled -"$(NONE)
 
-# $(OBJ_DIR)/%.o: %.cpp 
+# $(OBJ_DIR)/%.o: %.cpp
 # 	@echo $(CURSIVE)$(GRAY) "     - Building $<" $(NONE)
 # 	@mkdir -p $(dir $@)
 # 	@$(CC) $(CFLAGS) -c $< -o $@
+
+# lint:
+# 	@echo $(CURSIVE)$(GRAY) "     - Running cppcheck" $(NONE)
+# 	@cppcheck --enable=all --suppress=missingIncludeSystem --error-exitcode=1 .
+
+# format:
+# 	@echo $(CURSIVE)$(GRAY) "     - Running clang-format" $(NONE)
+# 	@find . -name '*.cpp' -o -name '*.h' | xargs clang-format -i
+
+# prepush: lint format
+# 	@git diff --exit-code
+# 	@make all
 
 # clean:
 # 	@$(RM) $(OBJS) $(OBJ_DIR)
@@ -40,7 +53,9 @@
 
 # re: fclean all
 
-# .PHONY: all clean fclean re
+# .PHONY: all clean fclean re lint format prepush
+
+
 NAME = ft_transcendence
 
 # COMPILER
@@ -69,9 +84,8 @@ $(NAME): $(OBJS)
 	@echo $(GREEN)"- Compiled -"$(NONE)
 
 $(OBJ_DIR)/%.o: %.cpp
-	@echo $(CURSIVE)$(GRAY) "     - Building $<" $(NONE)
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ >& /dev/null
 
 lint:
 	@echo $(CURSIVE)$(GRAY) "     - Running cppcheck" $(NONE)
