@@ -75,7 +75,7 @@ $(OBJ_DIR)/%.o: %.cpp
 
 lint:
 	@echo $(CURSIVE)$(GRAY) "     - Running cppcheck" $(NONE)
-	@cppcheck --enable=all --suppress=missingIncludeSystem --error-exitcode=1 .
+	@cppcheck --enable=all --error-exitcode=1 .
 
 format:
 	@echo $(CURSIVE)$(GRAY) "     - Running clang-format" $(NONE)
