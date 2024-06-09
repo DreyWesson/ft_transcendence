@@ -6,9 +6,11 @@
 /*   By: drey <drey@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 10:47:12 by doduwole          #+#    #+#             */
-/*   Updated: 2024/06/09 18:30:35 by drey             ###   ########.fr       */
+/*   Updated: 2024/06/09 19:28:20 by drey             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <iostream>
 
 int main(int argc, char **argv) {
   (void)argc;
