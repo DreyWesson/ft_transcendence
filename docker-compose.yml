@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    ports:
+      - "80:80"
+      - "8001:8001"
+      - "8002:8002"
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8090:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+volumes:
+  jenkins_home:
