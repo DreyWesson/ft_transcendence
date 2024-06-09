@@ -1,3 +1,29 @@
+# name: CI
+
+# on: [push, pull_request]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: '20'
+#     - name: Run Lint
+#       run: make lint
+#     - name: Run Format
+#       run: make format
+#     - name: Verify no changes
+#       run: git diff --exit-code
+#     - name: Build
+#       run: make re
+#     - name: clean up
+#       run: make fclean
+
+
 name: CI
 
 on: [push, pull_request]
@@ -7,18 +33,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-    - name: Run Lint
-      run: make lint
-    - name: Run Format
-      run: make format
-    - name: Verify no changes
-      run: git diff --exit-code
-    - name: Build
-      run: make re
-    - name: clean up
-      run: make fclean
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+      - name: Install build essentials and cppcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cppcheck
+      - name: Run Lint
+        run: make lint
+      - name: Run Format
+        run: make format
+      - name: Verify no changes
+        run: git diff --exit-code
+      - name: Build
+        run: make re
+      - name: clean up
+        run: make fclean
