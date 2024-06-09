@@ -1,31 +1,24 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main  # Adjust this branch name if needed
-  pull_request:
-    branches:
-      - main  # Adjust this branch name if needed
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - name: Run Lint
-        run: make lint || exit 1  # Stops the process if linting fails
-      - name: Run Format
-        run: make format || exit 1  # Stops the process if formatting fails
-      - name: Verify no changes
-        run: git diff --exit-code || exit 1  # Stops the process if there are uncommitted changes
-      - name: Build
-        run: make re || exit 1  # Stops the process if the build fails
-      - name: Clean up
-        run: make fclean || exit 1  # Stops the process if cleanup fails
-
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+    - name: Run Lint
+      run: make lint
+    - name: Run Format
+      run: make format
+    - name: Verify no changes
+      run: git diff --exit-code
+    - name: Build
+      run: make re
+    - name: clean up
+      run: make fclean
