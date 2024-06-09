@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     openjdk-11-jdk \
     git && \
     ln -sf /usr/bin/clang++ /usr/bin/c++ && \
-    curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm && \
     rm -rf /var/lib/apt/lists/*
@@ -23,16 +23,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app/
 
-# Install npm packages
-RUN npm install
-
 # Build the project
 RUN make re
 
-# Expose ports
 EXPOSE 80
-EXPOSE 8001
-EXPOSE 8002
-
-# Default command
-CMD ["npm", "start"]
